@@ -1,0 +1,81 @@
+class Solution:
+    def findMedianSortedArrays(self, nums1: List[int], nums2: List[int]) -> float:
+        len1 = len(nums1)
+        len2 = len(nums2)
+        ptr1=0
+        ptr2=0
+        
+        if((len1+len2)%2==1):       #singe median
+            medianIndex = (len1+len2)//2
+            idx=0
+            found=0
+            while(ptr1<len1 and ptr2<len2):
+                if(nums1[ptr1]<nums2[ptr2]):
+                    medii = nums1[ptr1]
+                    ptr1 += 1
+                else:
+                    medii = nums2[ptr2]        
+                    ptr2 += 1
+                if idx==medianIndex:
+                    found=1
+                    break
+                idx += 1
+                
+            if found == 1:
+                return medii
+            elif ptr1 == len1:
+                while(idx!=medianIndex):
+                    ptr2+=1
+                    idx += 1
+                return nums2[ptr2]
+            else:
+                while(idx!=medianIndex):
+                    ptr1+=1
+                    idx += 1
+                return nums1[ptr1]
+                
+            
+        else:                       #double median
+            medianIndex2 = (len1+len2)//2
+            medianIndex1 = medianIndex2-1
+            idx1=0
+            #idx2=1
+            found=0
+            while(ptr1<len1 and ptr2<len2):
+                if(nums1[ptr1]<nums2[ptr2]):
+                    medii1 = nums1[ptr1]
+                    ptr1 += 1
+                else:
+                    medii1 = nums2[ptr2]        
+                    ptr2 += 1
+                if idx1==medianIndex1:
+                    found=1
+                    break
+                idx1 += 1
+
+            #Reason for coming out of while loop    
+            if found==1:
+                #we only have to find medii2
+                #ptr1 += 1
+                #ptr2 += 1
+                if ptr1<len1 and ptr2<len2:
+                    medii2 = min(nums1[ptr1], nums2[ptr2])
+                elif ptr2<len2:
+                    medii2 = nums2[ptr2]
+            
+                else:
+                    medii2 = nums1[ptr1]  
+                return (medii1+medii2)/2
+                
+                
+            elif ptr2 == len2:
+                while(idx1!=medianIndex1):
+                    ptr1 += 1
+                    idx1 += 1
+                return (nums1[ptr1] + nums1[ptr1+1])/2
+            else:
+                while(idx1!=medianIndex1):
+                    ptr2 += 1
+                    idx1 += 1
+                return (nums2[ptr2] + nums2[ptr2+1])/2
+                
