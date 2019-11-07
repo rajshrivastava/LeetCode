@@ -1,0 +1,27 @@
+class Solution():
+    def checkPal(self, s, length, beg, end):
+        while (beg>=0 and end<length and s[beg] == s[end]):
+            beg -= 1
+            end += 1
+        
+        return beg+1, end-1
+        
+    def longestPalindrome(self, s: str) -> str:
+        longest = 0
+        final_beg = 0
+        final_end = 0
+        length = len(s)
+        if length == 0 or length == 1: return s
+        for i in range(len(s)):
+            beg, end = self.checkPal(s, length, i, i)
+            if  end - beg > longest:
+                final_beg = beg
+                final_end = end
+                longest = end - beg
+            beg, end = self.checkPal(s, length, i, i+1)
+            if  end - beg > longest:
+                final_beg = beg
+                final_end = end
+                longest = end - beg
+        #print(beg, end, longest)    
+        return s[final_beg:final_end+1]
