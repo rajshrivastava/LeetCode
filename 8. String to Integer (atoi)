@@ -1,0 +1,48 @@
+class Solution:
+    def is_number(self, n):
+        try:
+            float(n)   # Type-casting the string to `float`.
+                       # If string is not a valid `float`, 
+                       # it'll raise `ValueError` exception
+        except ValueError:
+            return False
+        return True
+
+    def myAtoi(self, s: str) -> int:
+        neg = False
+        whiteAllowed = True
+        signAllowed = True
+        i=0
+        length = len(s)
+        num = 0
+        while(i<length):
+            if s[i]==' 'and whiteAllowed:
+                i += 1
+                continue
+            whiteAllowed = False    
+            if s[i] == '-' and signAllowed:
+                neg = True
+                i += 1
+                signAllowed = False
+                continue
+            if s[i] == '+' and signAllowed:
+                neg = False
+                i += 1
+                signAllowed = False
+                continue
+            if self.is_number(s[i]):
+                if neg == False and ((num*10 + float(s[i]) ) > (pow(2,31)-1 ) ):
+                    return pow(2,31)-1
+                if neg == True and (num*10 + float(s[i]) ) >= (pow(2,31) ):
+                    return pow(-2,31)
+                num = num*10 + float(s[i])
+                i += 1
+                signAllowed = False
+            else:
+                break
+        
+                
+        if neg: return int(-num)
+        else: return int(num)
+
+            
