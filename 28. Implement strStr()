@@ -1,0 +1,22 @@
+class Solution(object):
+    def strStr(self, haystack, needle):
+        """
+        :type haystack: str
+        :type needle: str
+        :rtype: int
+        """
+        h = len(haystack)
+        n = len(needle)
+        if n == 0: return 0
+        for i in range(0,h-n+1):
+            if haystack[i] == needle[0]:
+                nIdx=1
+                hIdx = i+1
+                
+                while(nIdx<n and haystack[hIdx] == needle[nIdx]):
+                    hIdx+=1
+                    nIdx+=1
+                if nIdx == n:
+                    return i
+        return -1
+        
