@@ -1,0 +1,28 @@
+class Solution(object):
+    def nextPermutation(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: None Do not return anything, modify nums in-place instead.
+        """
+        n = len(nums)
+        if n == 0 or n==1: return nums
+        i = n-2
+        while(i>=0 and nums[i]>=nums[i+1]):
+            i -= 1
+        if i<0:
+            nums.reverse()
+            
+        else:
+            sub_min = float('inf')
+            for j in range(n-1, i, -1):
+                if nums[j]<sub_min and nums[j]>nums[i]:
+                    sub_min = nums[j]
+                    sub_min_index = j
+            print(i,sub_min_index, sub_min)       
+            nums[i], nums[sub_min_index] = nums[sub_min_index], nums[i]
+            begI = i+1
+            lastI = n-1
+            while(begI<lastI):
+                nums[begI], nums[lastI] = nums[lastI], nums[begI]
+                begI += 1
+                lastI -= 1
