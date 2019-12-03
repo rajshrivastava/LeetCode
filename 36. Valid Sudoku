@@ -1,0 +1,37 @@
+class Solution:
+    def isValidSudoku(self, board: List[List[str]]) -> bool:
+        #checking each row
+        for i in range(9):
+            visited1 = [False]*10
+            visited2 = [False]*10
+            for j in range(9):
+                if board[i][j] !='.':
+                    if visited1[int(board[i][j])] == True:
+                        return False
+                    visited1[int(board[i][j])] = True
+                if board[j][i] !='.':
+                    if visited2[int(board[j][i])] == True:
+                        return False
+                    visited2[int(board[j][i])] = True
+        '''
+        #checking each column
+        for i in range(9):
+            visited = [False]*10
+            for j in range(9):
+                if board[j][i] !='.':
+                    if visited[int(board[j][i])] == True:
+                        return False
+                    visited[int(board[j][i])] = True
+        '''            
+        #checking each sub-box
+        for beg_i in range(0, 9, 3):
+            for beg_j in range(0, 9, 3):
+                visited = set()
+                for i in range(3):
+                    for j in range(3):                        
+                        if board[beg_i+i][beg_j+j] !='.':
+                            if int(board[beg_i+i][beg_j+j]) in visited:
+                                return False
+                            visited.add(int(board[beg_i+i][beg_j+j]))
+        return True
+                
