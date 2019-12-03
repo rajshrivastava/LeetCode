@@ -1,0 +1,10 @@
+class Solution:
+    def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
+            
+        dic_order_anagrams = collections.defaultdict(list)
+        
+        for word in strs:
+            dic_order_anagrams[''.join(sorted(word))].append(word)
+        
+        return dic_order_anagrams.values()
+        
