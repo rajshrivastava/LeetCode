@@ -1,0 +1,16 @@
+class Solution:
+    def permute(self, nums: List[int]) -> List[List[int]]:
+        def permList(remNums, subList):
+            nonlocal ans
+            if len(remNums)==0:
+                ans.append(subList)
+                return
+            for num in remNums:
+                permList(remNums - {num}, subList + [num])
+                                
+        nums = set(nums)
+        ans = []
+        for num in nums:
+            permList(nums - {num}, [num])
+            
+        return ans
