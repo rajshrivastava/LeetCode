@@ -1,0 +1,18 @@
+class Solution:
+    def longestCommonSubsequence(self, text1: str, text2: str) -> int:
+        
+        r = len(text1)
+        c = len(text2)
+        
+        row1 = [0]*(c+1)
+        row2 = [0]*(c+1)       
+        
+        for i in range(1,r+1):
+            for j in range(1,c+1):
+                if text1[i-1] == text2[j-1]:
+                    row2[j] = row1[j-1] + 1
+                else:
+                    row2[j] = max(row1[j], row2[j-1])
+                
+            row1 = row2[:]
+        return row2[c]
