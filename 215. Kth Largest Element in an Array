@@ -1,0 +1,35 @@
+class Solution:
+    def findKthLargest(self, nums: List[int], k: int) -> int:
+        def partition(beg, end):
+            pivotIndex = random.randint(beg, end)
+            #pivotIndex=beg
+            pivot = nums[pivotIndex]
+            nums[pivotIndex], nums[end] = nums[end], nums[pivotIndex]
+            
+            x = beg-1            
+            for i in range(beg, end):
+                if nums[i] < pivot:
+                    x += 1
+                    nums[x], nums[i] = nums[i], nums[x]
+                    
+            nums[end], nums[x+1] = nums[x+1], nums[end]
+            
+            return x+1
+            
+        def k_smallest(beg, end):
+            p = partition(beg, end)
+        
+            if p < k:
+                return k_smallest(p+1, end)
+            elif p > k:
+                return k_smallest(beg, p-1)
+            else:
+                return nums[p]
+                    
+            pass
+        
+        n = len(nums)
+        k = n - k + 1 #converting to k-th smallest
+        k = k -1 #index of k-th smallest element
+        return k_smallest (0, n-1)
+        
