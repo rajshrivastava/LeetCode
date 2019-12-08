@@ -1,0 +1,32 @@
+class Solution:
+    def intersect(self, nums1: List[int], nums2: List[int]) -> List[int]:
+        n1 = len(nums1)
+        n2 = len(nums2)
+        ans = []
+        if n1<n2:
+            val_count = collections.defaultdict(int)
+            for i in range(n1):
+                val_count[nums1[i]] += 1
+            
+            for i in range(n2):
+                if nums2[i] in val_count:
+                    ans.append(nums2[i])
+                    if val_count[nums2[i]] == 1:
+                        del val_count[nums2[i]]
+                    else:
+                        val_count[nums2[i]] -= 1
+        
+        else:
+            val_count = collections.defaultdict(int)
+            for i in range(n2):
+                val_count[nums2[i]] += 1
+            
+            for i in range(n1):
+                if nums1[i] in val_count:
+                    ans.append(nums1[i])
+                    if val_count[nums1[i]] == 1:
+                        del val_count[nums1[i]]
+                    else:
+                        val_count[nums1[i]] -= 1
+        
+        return ans
