@@ -1,0 +1,12 @@
+class Solution:
+    def longestPalindrome(self, s: str) -> int:
+        odd = set()
+        for ch in s:
+            if ch in odd:
+                odd.remove(ch)
+            else:
+                odd.add(ch)
+        if len(odd)==0:
+            return len(s)
+        else:
+            return len(s)- len(odd) + 1
