@@ -1,0 +1,22 @@
+class Solution:
+    def permuteUnique(self, nums: List[int]) -> List[List[int]]:
+        def gen_perm(nums, cum_perm):
+            nonlocal permutations
+            if len(nums) == 0:
+                permutations.append(cum_perm)
+                return
+            
+            gen_perm(nums[1:], cum_perm + [nums[0]])
+            for i in range(1, len(nums)):
+                if nums[i] != nums[i-1]:
+                    gen_perm(nums[:i]+nums[i+1:], cum_perm+[nums[i]])
+        
+        permutations = []
+        if len(nums) == 0:
+            return []
+        nums.sort()
+        gen_perm(nums[1:], [nums[0]])
+        for i in range(1, len(nums)):
+            if nums[i] != nums[i-1]:
+                gen_perm(nums[:i]+nums[i+1:], [nums[i]])
+        return permutations
