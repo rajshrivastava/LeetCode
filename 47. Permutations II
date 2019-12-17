@@ -12,11 +12,7 @@ class Solution:
                     gen_perm(nums[:i]+nums[i+1:], cum_perm+[nums[i]])
         
         permutations = []
-        if len(nums) == 0:
-            return []
-        nums.sort()
-        gen_perm(nums[1:], [nums[0]])
-        for i in range(1, len(nums)):
-            if nums[i] != nums[i-1]:
-                gen_perm(nums[:i]+nums[i+1:], [nums[i]])
+        if len(nums) != 0:        
+            nums.sort()
+            gen_perm(nums, [])
         return permutations
