@@ -1,0 +1,21 @@
+class Solution:
+    def matrixReshape(self, nums: List[List[int]], r: int, c: int) -> List[List[int]]:
+        old_r = len(nums)
+        old_c = len(nums[0])
+        
+        if old_r*old_c != r*c:
+            return nums
+        
+        x=0
+        y=0
+        new_matrix = []
+        for i in range(r):
+            new_row = [None]*c
+            for j in range(c):
+                new_row[j] = nums[x][y]
+                y += 1
+                if y >=old_c:
+                    x += 1
+                    y=0
+            new_matrix.append(new_row)
+        return new_matrix 
