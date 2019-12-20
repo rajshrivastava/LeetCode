@@ -1,0 +1,10 @@
+class Solution:
+    def minCostToMoveChips(self, chips: List[int]) -> int:
+        odd_pos = 0
+        even_pos = 0
+        for chip in chips:
+            if chip%2:
+                odd_pos += 1
+            else:
+                even_pos += 1
+        return min(odd_pos, even_pos)
