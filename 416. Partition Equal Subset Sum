@@ -1,0 +1,29 @@
+class Solution:
+    def canPartition(self, nums: List[int]) -> bool:
+        def isTargetPossible(cumSum, i):
+            if cumSum == target:
+                return True
+            if i>=n or cumSum > target:
+                return False
+            return isTargetPossible(cumSum, i+1) or isTargetPossible(cumSum+nums[i], i+1)
+        
+        total = 0 
+        n = len(nums)
+        for num in nums:
+            total+=num
+        if total%2!=0:
+            return False
+        target = total/2
+        cumSum ={0}
+        for i in range(n):
+            temp = set()
+            for cs in cumSum:
+                if cs +nums[i] == target:
+                    return True
+                elif cs + nums[i]<target:
+                    temp.add(cs + nums[i])
+        
+            cumSum |= temp
+        print(cumSum)
+        return False
+        #return isTargetPossible(0, 0)
