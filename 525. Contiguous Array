@@ -1,0 +1,14 @@
+class Solution:
+    def findMaxLength(self, nums: List[int]) -> int:
+        max_length, count = 0, 0
+        count_index = {0:-1}
+        for i, num in enumerate(nums):
+            if num:
+                count +=1
+            else:
+                count -=1
+            if count in count_index:
+                max_length = max(max_length, i - count_index[count])
+            else:
+                count_index[count] = i
+        return max_length
