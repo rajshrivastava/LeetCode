@@ -1,0 +1,28 @@
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution:
+    def deepestLeavesSum(self, root: TreeNode) -> int:
+        ancestors = [root]
+        children = []
+        if root.left:
+            children.append(root.left)
+        if root.right:
+            children.append(root.right)
+
+        while children:
+            ancestors = children[:]
+            children = []
+            for node in ancestors:
+                if node.left:
+                    children.append(node.left)
+                if node.right:
+                    children.append(node.right)
+        total = 0
+        for node in ancestors:
+            total += node.val
+        return total
