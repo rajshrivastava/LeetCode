@@ -1,0 +1,18 @@
+class Solution:
+    def fairCandySwap(self, A: List[int], B: List[int]) -> List[int]:
+        if len(A) > len(B):
+            hashA = set(A)
+            semi_diff = (sum(A) - sum(B))//2
+
+            for b in B:
+                if semi_diff + b in hashA:
+                    return [semi_diff + b, b]
+        else:
+            hashB = set(B)
+            semi_diff = (sum(B) - sum(A))//2
+
+            for a in A:
+                if semi_diff + a in hashB:
+                    return [a, semi_diff + a]
+            
+                
