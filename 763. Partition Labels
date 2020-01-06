@@ -1,0 +1,14 @@
+class Solution:
+    def partitionLabels(self, S: str) -> List[int]:
+        partition_sizes = []
+        ch_lastIdx = {}
+        for i, ch in enumerate(S):
+            ch_lastIdx[ch] = i
+
+        firstIdx = lastIdx = 0
+        for i in range(len(S)):
+            lastIdx = max(lastIdx, ch_lastIdx[S[i]])
+            if i == lastIdx:
+                partition_sizes.append(lastIdx - firstIdx + 1)
+                firstIdx = lastIdx + 1
+        return partition_sizes
