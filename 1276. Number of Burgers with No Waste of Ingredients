@@ -1,0 +1,5 @@
+class Solution:
+    def numOfBurgers(self, tomatoSlices: int, cheeseSlices: int) -> List[int]:
+        J = tomatoSlices - 2*cheeseSlices
+        if J%2 or J<0 or cheeseSlices - J//2<0: return []
+        return [J//2, cheeseSlices - J//2]
