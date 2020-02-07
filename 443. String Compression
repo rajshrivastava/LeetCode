@@ -1,0 +1,35 @@
+class Solution:
+    def compress(self, chars: List[str]) -> int:
+        n = len(chars)
+        if n == 0:
+            return 0, []
+        
+        ptr = -1
+        ch = chars[0]
+        freq = 1
+        
+        for i in range(1, len(chars)):
+            if chars[i] == chars[i-1]:
+                freq += 1
+            else:
+                ptr += 1
+                chars[ptr] = ch
+            
+                if freq > 1:
+                    freq = list(str(freq))
+                    for f in freq:
+                        ptr += 1
+                        chars[ptr] = f
+                        
+                ch = chars[i]
+                freq = 1   
+        
+        ptr += 1
+        chars[ptr] = ch
+        if freq > 1:
+            freq = list(str(freq))
+            for f in freq:
+                ptr += 1
+                chars[ptr] = f
+        
+        return ptr + 1
