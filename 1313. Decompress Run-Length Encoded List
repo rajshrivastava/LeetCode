@@ -1,0 +1,6 @@
+class Solution:
+    def decompressRLElist(self, nums: List[int]) -> List[int]:
+        dec_list = []
+        for i in range(0, len(nums), 2):
+            dec_list.extend([nums[i+1]]*nums[i])
+        return dec_list
