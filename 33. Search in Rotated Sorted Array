@@ -1,0 +1,36 @@
+class Solution:
+    def search(self, nums: List[int], target: int) -> int:
+        def findPivotIndex(beg, end):
+            while beg!=end:
+                if nums[beg] > nums[beg+1]:
+                    return beg+1
+                if nums[end-1] > nums[end]:
+                    return end
+                mid = (beg + end)//2
+                if nums[beg] > nums[mid]:
+                    end = mid
+                elif nums[mid] > nums[end]:
+                    beg = mid
+                else:
+                    return beg
+            return beg #0
+        
+        def findTargetIndex(beg, end):
+            while(beg<=end):
+                mid = (beg+end)//2
+                if nums[mid] == target:
+                    return mid
+                elif target > nums[mid]:
+                    beg = mid+1
+                else:
+                    end = mid-1
+            return -1
+            
+        n = len(nums)
+        if not n:
+            return -1
+        p = findPivotIndex(0, n-1)
+        if target>=nums[p] and target<=nums[n-1]:
+            return findTargetIndex(p, n-1)
+        else:
+            return findTargetIndex(0,p-1)
