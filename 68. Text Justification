@@ -1,0 +1,40 @@
+class Solution:
+    def fullJustify(self, words: List[str], maxWidth: int) -> List[str]:
+        justified = []
+        n = len(words)
+        i=0
+        while(i<n):
+            beg = i
+            end = i
+            tempWidth = len(words[beg])
+            
+            #calculating the range of words to be used in subText
+            while(tempWidth <= maxWidth and end<n-1):
+                end += 1
+                tempWidth += 1 + len(words[end])
+            if tempWidth > maxWidth:
+                tempWidth -= (1 + len(words[end]) )
+                end -= 1
+
+            #if it is the last line of justified text or it contains only 1 word
+            if end == n-1 or beg == end:
+                subText = words[beg]
+                while(beg < end):
+                    beg += 1
+                    subText += ' ' + words[beg]
+                subText += ' '*(maxWidth - len(subText))
+                justified.append(subText)    
+                
+            #if it is not the last line of justified text
+            else:
+                remainingWidth = maxWidth - tempWidth + (end-beg)
+                noOfGaps = end - beg
+                subText = words[end]
+                for i in range(noOfGaps):
+                    subSpace = remainingWidth//noOfGaps
+                    remainingWidth -= subSpace
+                    noOfGaps -= 1
+                    subText = words[end-1-i] + ' ' * subSpace + subText
+                justified.append(subText)
+            i=end+1
+        return justified
