@@ -1,0 +1,5 @@
+class Solution:
+    def findComplement(self, num: int) -> int:
+        noOfMaskBits = math.floor(math.log2(num))+1
+        mask = '0b' + '1'*noOfMaskBits
+        return num^int(mask,2)
