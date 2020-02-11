@@ -1,0 +1,9 @@
+class Solution:
+    def singleNumber(self, nums: List[int]) -> int:
+        track = set()
+        for num in nums:
+            if num in track:
+                track.remove(num)
+            else:
+                track.add(num)
+        return [v for v in track][0]
