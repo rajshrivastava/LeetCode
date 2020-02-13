@@ -1,0 +1,19 @@
+class Solution:
+    def dailyTemperatures(self, T: List[int]) -> List[int]:
+        n = len(T)
+        waitDays = [0]*n
+        waitDays[-1] = 0
+        for i in range(n-2, -1, -1):
+            if T[i] < T[i+1]:
+                waitDays[i] = 1
+                continue
+                
+            idx = i+1
+            while(waitDays[idx]!=0 and T[idx]<=T[i]):
+                idx += waitDays[idx]
+                
+            if T[idx] > T[i]:
+                waitDays[i] = idx-i
+            else:
+                waitDays[i] = 0
+        return waitDays
