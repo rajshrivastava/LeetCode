@@ -1,0 +1,24 @@
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution:
+    def findLeaves(self, root: TreeNode) -> List[List[int]]:
+        def getHeight(node):
+            if not node:
+                return -1
+            h = max(getHeight(node.left), getHeight(node.right))+1
+            height_val[h].append(node.val)
+            
+            return h
+        
+        height_val = collections.defaultdict(list)
+        getHeight(root)
+        
+        nodesList = []
+        for i in range(len(height_val)):
+            nodesList.append(height_val[i])
+        return nodesList
