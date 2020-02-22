@@ -1,0 +1,30 @@
+class Solution:
+    def largestNumber(self, nums: List[int]) -> str:
+        def isLarger(num1, num2):
+            return int(num1+num2) > int(num2+num1)
+        
+        def arrange(nums):
+            for i in range(1, len(nums)):
+                key = nums[i]
+                j = i-1
+                while(j>=0 and isLarger(key, nums[j])):
+                    nums[j+1] = nums[j]
+                    j -= 1
+                nums[j+1] = key
+            
+            concat = ''
+            for num in nums:
+                concat += num
+            return concat
+            
+        buckets = collections.defaultdict(list)
+        for num in nums:
+            num = str(num)
+            buckets[num[0]].append(num)
+        
+        result = ''
+        for i in range(9, -1, -1):
+            result += (arrange(buckets[str(i)]))
+        
+            
+        return '0' if result[0] == '0' else result
