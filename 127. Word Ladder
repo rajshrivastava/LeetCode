@@ -1,0 +1,25 @@
+class Solution:
+    def ladderLength(self, beginWord: str, endWord: str, wordList: List[str]) -> int:
+        all_dict = collections.defaultdict(list)
+        wordLength = len(beginWord)
+        for word in wordList:
+            for i in range(wordLength):
+                key = word[:i] + '*' + word[i+1:]
+                all_dict[key].append(word)
+
+        length = 1
+        currWords = [beginWord]
+        visited = set([beginWord])
+        while currWords:
+            nextWords = []
+            for word1 in currWords:
+                for i in range(wordLength):
+                    key = word1[:i] + '*' + word1[i+1:]
+                    nextWords.extend(all_dict[key])
+            nextWords = set(nextWords) - visited
+            if endWord in nextWords:
+                return length + 1
+            visited |= nextWords
+            length += 1
+            currWords = nextWords
+        return 0
