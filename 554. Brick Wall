@@ -1,0 +1,10 @@
+class Solution:
+    def leastBricks(self, wall: List[List[int]]) -> int:
+        cumCount = collections.defaultdict(int)
+        for row in wall:
+            cum = 0
+            for i in range(len(row)-1):
+                cum += row[i]
+                cumCount[cum] += 1
+        
+        return len(wall) - max(cumCount.values(), default=0)
