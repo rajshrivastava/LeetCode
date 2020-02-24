@@ -1,0 +1,36 @@
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution:
+    def sumEvenGrandparent(self, root: TreeNode) -> int:
+        def sumLevel2Nodes(node):
+            level1 = []
+            if node.left:
+                level1.append(node.left)
+            if node.right:
+                level1.append(node.right)
+            
+            total = 0
+            for node in level1:
+                if node.left:
+                    total += node.left.val
+                if node.right:
+                    total += node.right.val
+            return total
+        
+        def dfs(node):
+            nonlocal total
+            if not node:
+                return
+            if node.val%2==0:
+                total+= sumLevel2Nodes(node)
+            dfs(node.left)
+            dfs(node.right)
+        
+        total = 0
+        dfs(root)
+        return total
