@@ -1,0 +1,14 @@
+class Solution:
+    def minSetSize(self, arr: List[int]) -> int:
+        count = collections.defaultdict(int)
+        for num in arr:
+            count[num] += 1
+        heap = [-value for value in count.values()]
+        heapq.heapify(heap)
+        half_n = len(arr)/2
+        count = 0
+        total = 0
+        while total<half_n:
+            total -= heapq.heappop(heap)
+            count+=1
+        return count
