@@ -1,0 +1,27 @@
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution:
+    def smallestFromLeaf(self, root: TreeNode) -> str:
+        def getWords(node, word):
+            if not node.left and not node.right:
+                words.append(dic[node.val] + word)
+                return
+            
+            if node.left:
+                getWords(node.left, dic[node.val] + word)
+            if node.right:
+                getWords(node.right, dic[node.val] + word)
+        
+        dic = ['a','b','c','d','e','f','g','h','i','j','k',\
+               'l','m','n','o','p','q','r','s',\
+               't','u','v','w','x','y','z']
+    
+        words = []
+        getWords(root, '')
+        return min(words)
+        
