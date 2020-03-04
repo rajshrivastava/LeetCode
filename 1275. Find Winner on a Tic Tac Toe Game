@@ -1,0 +1,41 @@
+class Solution:
+    def tictactoe(self, moves: List[List[int]]) -> str:
+        grid = []
+        for i in range(3):
+            grid.append([None]*3)
+        n = len(moves)
+        for i in range(0, n, 2):
+            x,y = moves[i]
+            grid[x][y] = 'X'
+            
+            if i+1<n:
+                x,y = moves[i+1]
+                grid[x][y] = 'O'
+        
+        for i in range(3):
+            x_row = x_col = o_row =  o_col= 0
+            o_row = 0
+            for j in range(3):
+                if grid[i][j] == 'X': x_row+=1
+                if grid[j][i] == 'X': x_col+=1
+                    
+                if grid[i][j] == 'O': o_row+=1
+                if grid[j][i] == 'O': o_col+=1
+            
+            if x_row==3 or x_col==3: return 'A'
+            if o_row==3 or o_col==3: return 'B'
+            
+        x_diag1 = x_diag2 = o_diag1 = o_diag2 = 0
+        for i in range(3):
+            if grid[i][i] == 'X': x_diag1+=1
+            if grid[i][2-i] == 'X': x_diag2+=1    
+            if grid[i][i] == 'O': o_diag1+=1
+            if grid[i][2-i] == 'O': o_diag2+=1   
+        
+        if x_diag1 == 3 or x_diag2 == 3: return 'A'
+        if o_diag1 == 3 or o_diag2 == 3: return 'B'
+        
+        if n < 9:
+            return "Pending"
+        else:
+            return "Draw"
