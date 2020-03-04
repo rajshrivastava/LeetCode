@@ -1,0 +1,50 @@
+class Solution:
+    def diffWaysToCompute(self, inp: str) -> List[int]:
+        def subCompute(left, op, right):
+            if not left in dp:
+                multipleOperands = False
+                leftWays = []
+                for i in range(len(left)):
+                    if left[i] in '+-*':
+                        leftWays.extend(subCompute(left[:i], left[i], left[i+1:]))
+                        multipleOperands = True
+
+                if not multipleOperands:
+                    dp[left] = [int(left)]
+                else:
+                    dp[left] = leftWays
+                    
+            
+            if  not right in dp:
+                multipleOperands = False
+                rightWays = []
+                for i in range(len(right)):
+                    if right[i] in '+-*':
+                        rightWays.extend(subCompute(right[:i], right[i], right[i+1:]))
+                        multipleOperands = True
+
+                if not multipleOperands:
+                    dp[right] = [int(right)]
+                else:
+                    dp[right] = rightWays
+            
+            subWays = []
+            for i in dp[left]:
+                for j in dp[right]:
+                    subWays.append(ops[op](i,j))
+            return subWays
+        
+        #driver    
+        ways = []
+        dp = dict()
+        ops = { "+": operator.add, "-": operator.sub, '*':operator.mul} 
+        #ops = { "+": operator.add, "-": operator.sub }
+        multipleOperands = False
+        for i in range(len(inp)):
+            if inp[i] in '+-*':
+                ways.extend(subCompute(inp[:i], inp[i], inp[i+1:]))
+                multipleOperands= True
+        if not multipleOperands:
+            return [int(inp)]
+        else:
+            return ways
