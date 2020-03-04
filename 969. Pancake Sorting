@@ -1,0 +1,24 @@
+class Solution:
+    def pancakeSort(self, A: List[int]) -> List[int]:
+        def find(num):
+            i = 0
+            while(A[i]!=num):
+                i+=1
+            return i
+        
+        def reverse(beg, end):
+            while(beg<end):
+                A[beg], A[end] = A[end], A[beg]
+                beg+=1
+                end-=1
+        #driver
+        Ks = []
+        pos  = len(A)-1
+        while pos>=0:
+            if A[pos] != pos+1:
+                x = find(pos+1)
+                reverse(0, x)
+                reverse(0, pos)
+                Ks.extend([x+1,pos+1])
+            pos-=1
+        return Ks
