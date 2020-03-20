@@ -1,0 +1,18 @@
+class Solution:
+    def smallerNumbersThanCurrent(self, nums: List[int]) -> List[int]:
+        highest = -float('inf')
+        lowest = float('inf')
+        ele_index = collections.defaultdict(list)
+        for i, num in enumerate(nums):
+            highest = max(highest, num)
+            lowest = min(lowest, num)
+            ele_index[num].append(i)
+        
+        next_rank = 0
+        for ele in range(lowest, highest+1):
+            if ele_index[ele]:
+                rank = next_rank
+                for index in ele_index[ele]:
+                    nums[index] = rank
+                    next_rank += 1
+        return nums
