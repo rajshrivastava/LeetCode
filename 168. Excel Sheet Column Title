@@ -1,0 +1,11 @@
+class Solution:
+    def convertToTitle(self, n: int) -> str:
+        s = ''
+        while n>26:
+            if n%26==0:
+                s = 'Z' + s
+                n -= 26
+            else:
+                s = chr(n%26 + 64) + s
+            n //= 26
+        return chr(n + 64) + s
