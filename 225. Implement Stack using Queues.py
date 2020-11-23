@@ -1,0 +1,49 @@
+import queue
+class MyStack:
+
+    def __init__(self):
+        """
+        Initialize your data structure here.
+        """
+        self.q = queue.Queue()
+
+    def push(self, x: int) -> None:
+        """
+        Push element x onto stack.
+        """
+        self.q.put(x)
+
+    def getFirst(self):
+        for i in range(self.q.qsize() - 1):
+            self.q.put(self.q.get())
+        first = self.q.get()
+        return first
+        
+    def pop(self) -> int:
+        """
+        Removes the element on top of the stack and returns that element.
+        """
+        first = self.getFirst()
+        return first
+
+    def top(self) -> int:
+        """
+        Get the top element.
+        """
+        first = self.getFirst()
+        self.q.put(first)
+        return first
+
+    def empty(self) -> bool:
+        """
+        Returns whether the stack is empty.
+        """
+        return self.q.qsize() == 0
+
+
+# Your MyStack object will be instantiated and called as such:
+# obj = MyStack()
+# obj.push(x)
+# param_2 = obj.pop()
+# param_3 = obj.top()
+# param_4 = obj.empty()
